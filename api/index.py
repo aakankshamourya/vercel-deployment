@@ -1,18 +1,11 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify
 
 app = Flask(__name__)
 
 @app.route("/")
 def home():
-    return jsonify({"message": "Flask app running on Vercel 🚀"})
+    return jsonify({"message": "Working on Vercel 🚀"})
 
-@app.route("/predict", methods=["POST"])
-def predict():
-    data = request.json
-    return jsonify({
-        "received_data": data,
-        "prediction": "demo_result"
-    })
-
-# Vercel expects this variable
-handler = app
+# THIS IS REQUIRED
+def handler(request):
+    return app(request.environ, lambda status, headers: None)
